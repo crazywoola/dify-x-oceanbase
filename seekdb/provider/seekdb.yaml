@@ -12,51 +12,69 @@ identity:
     pt_BR: "A plugin for oceanbase seekdb"
     ja_JP: "A plugin for oceanbase seekdb"
   icon: "icon.svg"
-
-#########################################################################################
-# If you want to support OAuth, you can uncomment the following code.
-#########################################################################################
-# oauth_schema:
-#   client_schema:
-#     - name: "client_id"
-#       type: "secret-input"
-#       required: true
-#       url: https://example.com/oauth/authorize
-#       placeholder:
-#         en_US: "Please input your Client ID"
-#         zh_Hans: "请输入你的 Client ID"
-#         pt_BR: "Insira seu Client ID"
-#       help:
-#         en_US: "Client ID is used to authenticate requests to the example.com API."
-#         zh_Hans: "Client ID 用于认证请求到 example.com API。"
-#         pt_BR: "Client ID é usado para autenticar solicitações à API do example.com."
-#       label:
-#         zh_Hans: "Client ID"
-#         en_US: "Client ID"
-#     - name: "client_secret"
-#       type: "secret-input"
-#       required: true
-#       url: https://example.com/oauth/authorize
-#       placeholder:
-#         en_US: "Please input your Client Secret"
-#         zh_Hans: "请输入你的 Client Secret"
-#         pt_BR: "Insira seu Client Secret"
-#       help:
-#         en_US: "Client Secret is used to authenticate requests to the example.com API."
-#         zh_Hans: "Client Secret 用于认证请求到 example.com API。"
-#         pt_BR: "Client Secret é usado para autenticar solicitações à API do example.com."
-#       label:
-#         zh_Hans: "Client Secret"
-#         en_US: "Client Secret"
-#   credentials_schema:
-#     - name: "access_token"
-#       type: "secret-input"
-#       label:
-#         zh_Hans: "Access Token"
-#         en_US: "Access Token"
-
 tools:
-  - tools/seekdb.yaml
+- tools/seekdb.yaml
 extra:
   python:
     source: provider/seekdb.py
+credentials_for_provider:
+  host:
+    type: text-input
+    required: true
+    label:
+      en_US: Host
+      zh_Hans: 主机地址
+    placeholder:
+      en_US: 127.0.0.1
+      zh_Hans: 127.0.0.1
+    help:
+      en_US: Enter the SeekDB server host address.
+      zh_Hans: 输入 SeekDB 服务器主机地址。
+  port:
+    type: text-input
+    required: true
+    label:
+      en_US: Port
+      zh_Hans: 端口
+    placeholder:
+      en_US: "2881"
+      zh_Hans: "2881"
+    help:
+      en_US: Enter the SeekDB server port.
+      zh_Hans: 输入 SeekDB 服务器端口。
+  tenant:
+    type: text-input
+    required: true
+    label:
+      en_US: Tenant
+      zh_Hans: 租户
+    placeholder:
+      en_US: sys
+      zh_Hans: sys
+    help:
+      en_US: Enter the tenant name default sys
+      zh_Hans: 输入租户名称（默认：sys）。
+  user:
+    type: text-input
+    required: true
+    label:
+      en_US: User
+      zh_Hans: 用户名
+    placeholder:
+      en_US: root
+      zh_Hans: root
+    help:
+      en_US: Enter the database username.
+      zh_Hans: 输入数据库用户名。
+  password:
+    type: secret-input
+    required: false
+    label:
+      en_US: Password
+      zh_Hans: 密码
+    placeholder:
+      en_US: Your password
+      zh_Hans: 请输入密码
+    help:
+      en_US: Enter the database password. Can be set via SEEKDB_PASSWORD environment variable.
+      zh_Hans: 输入数据库密码。可通过 SEEKDB_PASSWORD 环境变量设置。

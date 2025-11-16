@@ -8,46 +8,40 @@ class SeekdbProvider(ToolProvider):
     
     def _validate_credentials(self, credentials: dict[str, Any]) -> None:
         try:
-            """
-            IMPLEMENT YOUR VALIDATION HERE
-            """
-        except Exception as e:
-            raise ToolProviderCredentialValidationError(str(e))
+            import pyseekdb
+        except ImportError as exc:
+            raise ToolProviderCredentialValidationError(
+                "pyseekdb is not installed. Please install the SeekDB client dependency."
+            ) from exc
 
-    #########################################################################################
-    # If OAuth is supported, uncomment the following functions.
-    # Warning: please make sure that the sdk version is 0.4.2 or higher.
-    #########################################################################################
-    # def _oauth_get_authorization_url(self, redirect_uri: str, system_credentials: Mapping[str, Any]) -> str:
-    #     """
-    #     Generate the authorization URL for seekdb OAuth.
-    #     """
-    #     try:
-    #         """
-    #         IMPLEMENT YOUR AUTHORIZATION URL GENERATION HERE
-    #         """
-    #     except Exception as e:
-    #         raise ToolProviderOAuthError(str(e))
-    #     return ""
-        
-    # def _oauth_get_credentials(
-    #     self, redirect_uri: str, system_credentials: Mapping[str, Any], request: Request
-    # ) -> Mapping[str, Any]:
-    #     """
-    #     Exchange code for access_token.
-    #     """
-    #     try:
-    #         """
-    #         IMPLEMENT YOUR CREDENTIALS EXCHANGE HERE
-    #         """
-    #     except Exception as e:
-    #         raise ToolProviderOAuthError(str(e))
-    #     return dict()
+        host = credentials.get("host")
+        port_value = credentials.get("port", 2881)
+        tenant = credentials.get("tenant") or "sys"
+        user = credentials.get("user") or "root"
+        password = credentials.get("password", "")
+        database = credentials.get("database") or "demo"
 
-    # def _oauth_refresh_credentials(
-    #     self, redirect_uri: str, system_credentials: Mapping[str, Any], credentials: Mapping[str, Any]
-    # ) -> OAuthCredentials:
-    #     """
-    #     Refresh the credentials
-    #     """
-    #     return OAuthCredentials(credentials=credentials, expires_at=-1)
+        if not host:
+            raise ToolProviderCredentialValidationError("Host is required.")
+
+        try:
+            port = int(port_value)
+        except (TypeError, ValueError) as exc:
+            raise ToolProviderCredentialValidationError("Port must be a valid integer.") from exc
+
+        try:
+            client = pyseekdb.Client(
+                host=host,
+                port=port,
+                tenant=tenant,
+                database=database,
+                user=user,
+                password=password,
+            )
+            client.count_collection()
+        except Exception as exc:
+            raise ToolProviderCredentialValidationError(
+                f"Unable to connect to SeekDB: {exc}"
+            ) from exc
+
+   
