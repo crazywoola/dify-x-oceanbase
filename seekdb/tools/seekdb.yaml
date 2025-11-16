@@ -1,0 +1,34 @@
+identity:
+  name: "seekdb"
+  author: "crazywoola"
+  label:
+    en_US: "seekdb"
+    zh_Hans: "seekdb"
+    pt_BR: "seekdb"
+    ja_JP: "seekdb"
+description:
+  human:
+    en_US: "A plugin for oceanbase seekdb"
+    zh_Hans: "A plugin for oceanbase seekdb"
+    pt_BR: "A plugin for oceanbase seekdb"
+    ja_JP: "A plugin for oceanbase seekdb"
+  llm: "A plugin for oceanbase seekdb"
+parameters:
+  - name: query
+    type: string
+    required: true
+    label:
+      en_US: Query string
+      zh_Hans: 查询语句
+      pt_BR: Query string
+      ja_JP: クエリ文字列
+    human_description:
+      en_US: "A plugin for oceanbase seekdb"
+      zh_Hans: "A plugin for oceanbase seekdb"
+      pt_BR: "A plugin for oceanbase seekdb"
+      ja_JP: "A plugin for oceanbase seekdb"
+    llm_description: "A plugin for oceanbase seekdb"
+    form: llm
+extra:
+  python:
+    source: tools/seekdb.py
