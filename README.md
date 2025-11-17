@@ -71,6 +71,7 @@ Make sure you are in the hello-world directory
 
 ```bash
 cp .env.example .env
+# edit SECRET_KEY in .env
 ```
 
 Edit the `.env` file to set your plugin's environment variables, such as API keys or other configurations. You can find these variables in the Dify dashboard. Log in to your Dify environment, click the “Plugins” icon in the top right corner, then click the debug icon (or something that looks like a bug). In the pop-up window, copy the “API Key” and “Host Address”. (Please refer to your local corresponding screenshot, which shows the interface for obtaining the key and host address)
